@@ -1,3 +1,11 @@
+liblingua-en-words2nums-perl (0.11) unstable; urgency=low
+
+  * Do not pass through things of the form "10-11", since they're note really
+    numbers.
+  * Fix testnum to work with library in same directory.
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 26 May 2003 15:48:37 -0400
+
 liblingua-en-words2nums-perl (0.10) unstable; urgency=low
 
   * Add proper spelling of "forty", and alternate "nought" spelling.

@@ -1,6 +1,10 @@
 #!/usr/bin/perl
-use lib 'lib';
-use Lingua::EN::Words2Nums;
+
+# Load module from current directory.
+use lib ".";
+use Words2Nums;
+import Lingua::EN::Words2Nums;
+
 $Lingua::EN::Words2Nums::debug=1;
 if (@ARGV) {
 	print "$ARGV[0] => ".words2nums(shift)."\n";

@@ -40,5 +40,17 @@ binary-indep: build install
 	dh_md5sums
 	dh_builddeb
 
+VERSION=$(shell expr "`dpkg-parsechangelog 2>/dev/null |grep Version:`" : '.*Version: \(.*\)')
+
+# Update the web page. Not intended for use by anyone except the
+# author.
+DIR=/home/web/kitenet.net/programs/Lingua::EN::Words2Nums
+installhook:
+	cp debian/changelog $(DIR)/CHANGES
+	cp TODO $(DIR)/TODO
+	echo -n $(VERSION) > $(DIR)/LATEST-VERSION-IS
+	rm -f $(DIR)/*.tar.gz
+	ln -s /home/joey/debian/unstable/liblingua-en-words2nums-perl_$(VERSION).tar.gz $(DIR)/Lingua::EN::Words2Nums-$(VERSION).tar.gz
+
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install

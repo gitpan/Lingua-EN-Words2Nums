@@ -61,9 +61,6 @@ It defaults to the American version; the English will want to set it to
 
 It does not understand decimals or fractions, yet.
 
-It happens that it can do some simple math such as "fourteen minus five", 
-but don't count on that working in the future.
-
 Scores are supported, eg: "four score and ten". So are dozens. So is a baker's
 dozen. And a gross.
 
@@ -241,8 +238,12 @@ sub words2nums ($) {
 	chomp $_;
 
 	s/,//; # ignore comma, even if it's in a plain number
-	return $_ if /^[-+.0-9\s]+$/; # short circuit for plain number
+	return $_ if /^[-+]?[.0-9\s]+$/; # short circuit for plain number
 
+	if (/^[-+0-9.]+$/) {
+		return failure("+ or - not at beginning") if length $_;
+	}
+	
 	s/\b(and|a|of)\b//g; # ignore some common words
 	s/[^A-Za-z0-9.]//g; # ignore spaces and punctuation, except period.
 	return failure("not a number") unless length $_;
