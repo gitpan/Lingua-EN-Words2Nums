@@ -204,9 +204,10 @@ sub words2nums ($) {
 	$total=$oldpre=$suffix=$newmult=0;
 	$mult=1;
 	
-	return failure("not a number") unless length $_;
 	s/\b(and|a|of)\b//g; # ignore some common words
 	s/[^A-Za-z0-9.]//g; # ignore punctuation, except period.
+	return failure("not a number") unless length $_;
+
 	# Work backwards up the string.
 	while (length $_) {
 		$nametosub{$1}[0]->($nametosub{$1}[1]) while s/$numregexp$//;

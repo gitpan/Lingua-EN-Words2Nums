@@ -1,3 +1,10 @@
+liblingua-en-words2nums-perl (0.03) unstable; urgency=low
+
+  * If the entire string is ignorables ("and", "a", punctuation), don't
+    return 0, but undef.
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 12 Jan 2002 14:17:16 -0500
+
 liblingua-en-words2nums-perl (0.02) unstable; urgency=low
 
   * Added support for trillion through googolplex, and added localization
