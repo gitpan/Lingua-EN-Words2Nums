@@ -4,8 +4,12 @@
 # the module.
 0            zero
 1            one
+1            first
 2            second
 3            three
+3            third
+9            ninth
+59           fifty-ninth
 1000         thousand
 1000         one thousand
 16           sixteen
@@ -23,6 +27,7 @@
 153          one hundred fifty three
 88           eighty-eight
 42           fourtytwo
+1000000      millionth
 3424         thirty-four hundred twenty-four
 11059        eleven thousand and fifty-nine
 9622000      nine million, six hundred and twenty-two thousand
@@ -44,3 +49,23 @@
 1001         thousand one
 4603         four thousand six hundred and three
 4103         four thousand, hundred and three
+288          two grosses
+inf          googolplex
+inf          seven googolplexes
+1e+100       googol
+2e+101       a score of googoles
+1000000		million
+1000000000	billion
+1000000000000	trillion
+1e+15		quadrillion
+1e+18		quintillion
+1e+21		sextillion
+1e+24		septillion
+1e+27		octillion
+1e+30		nonillion
+1e+33		decillion
+1		1st
+2		2nd
+3		3rd
+4		4th
+4023		4023rd

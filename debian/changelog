@@ -1,3 +1,11 @@
+liblingua-en-words2nums-perl (0.02) unstable; urgency=low
+
+  * Added support for trillion through googolplex, and added localization
+    code for the different billions and other numbers.
+  * Lots of bugfixes, including getting the ordinals right (I hope).
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 19 Dec 2001 23:08:03 -0500
+
 liblingua-en-words2nums-perl (0.01) unstable; urgency=low
 
   * First release.

@@ -7,8 +7,8 @@ Lingua::EN::Words2Nums - convert English text to numbers
 =cut
 
 package Lingua::EN::Words2Nums;
-#use warnings;
-#use strict;
+use warnings; # NOT IN PRODUCTION CODE
+use strict; # NOT IN PRODUCTION CODE
 require Exporter;
 our @ISA=qw(Exporter);
 our @EXPORT=qw(&words2nums);
@@ -23,7 +23,7 @@ our @EXPORT=qw(&words2nums);
 =head1 DESCRIPTION
 
 This module converts English text into numbers. It supports both ordinal and
-cardinal numbers, negative numbers, and numbers larger than one billion.
+cardinal numbers, negative numbers, and very large numbers.
 
 The main subroutine, which is exported by default, is words2nums(). This
 subroutine, when fed a string, will attempt to convert it into a number.
@@ -48,11 +48,12 @@ our $billion = 10 ** 9;
 Default: 0. If set to a true value, outputs on standard error some useful
 messages if parsing fails for some reason.
 
-=item $Lingua::EN::Words2Nums::million
+=item $Lingua::EN::Words2Nums::billion
 
-Default: 10 ** 9. This is the number that will be returned for "one million".
+Default: 10 ** 9. This is the number that will be returned for "one billion".
 It defaults to the American version; the English will want to set it to
-10 ** 12.
+10 ** 12. Setting this number automatically changes all the larger numbers
+(trillion, quadrillion, etc) to match.
 
 =back
 
@@ -68,59 +69,76 @@ dozen. And a gross.
 
 Various mispellings of numbers are understood.
 
+While it handles googol correctly, googolplex is too large to fit in perl's
+standard scalar type, and "inf" will be returned.
+
 =cut
  
-my ($total, $mult, $oldpre, $newmult, $suffix, $val);
-
-my %nametosub = (
-	zero =>		[ \&num, 0 ],
-	one =>		[ \&num, 1 ],
-	first =>	[ \&num, 1 ],
-	two =>		[ \&num, 2 ],
-	second =>	[ \&num, 2 ],
-	three =>	[ \&num, 3 ],
-	third =>	[ \&num, 3 ],
-	four =>		[ \&num, 4 ],
-	five =>		[ \&num, 5 ],
+our %nametosub = (
+	naught =>	[ \&num, 0 ],   # Cardinal numbers, leaving out the 
+	zero =>		[ \&num, 0 ],	# ones that just add "th".
+	one =>		[ \&num, 1 ],	first =>	[ \&num, 1 ],
+	two =>		[ \&num, 2 ],	second =>	[ \&num, 2 ],
+	three =>	[ \&num, 3 ],	third =>	[ \&num, 3 ],
+	four =>		[ \&num, 4 ],	fourth =>	[ \&num, 5 ],
+	five =>		[ \&num, 5 ],	fifth =>	[ \&num, 5 ],
 	six =>		[ \&num, 6 ],
-	seven =>	[ \&num, 7 ],
-	eight =>	[ \&num, 8 ],
-	nine =>		[ \&num, 9 ],
+	seven =>	[ \&num, 7 ],	seven =>	[ \&num, 7 ],
+	eight =>	[ \&num, 8 ],   eighth =>	[ \&num, 8 ],
+	nine =>		[ \&num, 9 ],	ninth =>	[ \&num, 9 ],
 	ten =>		[ \&num, 10 ],
 	eleven =>	[ \&num, 11 ],
-	twelve =>	[ \&num, 12 ],
+	twelve =>	[ \&num, 12 ],	twelfth =>	[ \&num, 12 ],
 	thirteen =>	[ \&num, 13 ],
 	fifteen =>	[ \&num, 15 ],
 	eighteen =>	[ \&num, 18 ],
 	ninteen =>	[ \&num, 19 ], # common(?) mispelling
 	teen =>		[ \&suffix, 10 ], # takes care of the regular teens
-	twenty =>	[ \&num, 20 ],
-	thirty =>	[ \&num, 30 ],
-	fourty =>	[ \&num, 40 ],
-	fifty =>	[ \&num, 50 ],
-	sixty =>	[ \&num, 60 ],
-	seventy =>	[ \&num, 70 ],
-	eighty =>	[ \&num, 80 ],
-	ninety =>	[ \&num, 90 ],
+	twenty =>	[ \&num, 20 ],	twentieth =>	[ \&num, 20 ],
+	thirty =>	[ \&num, 30 ],  thirtieth =>	[ \&num, 30 ],
+	fourty =>	[ \&num, 40 ],	fortieth =>	[ \&num, 40 ],
+	fifty =>	[ \&num, 50 ],	fiftieth =>	[ \&num, 50 ],
+	sixty =>	[ \&num, 60 ],	sixtieth =>	[ \&num, 60 ],
+	seventy =>	[ \&num, 70 ],	seventieth =>	[ \&num, 70 ],
+	eighty =>	[ \&num, 80 ],	eightieth =>	[ \&num, 80 ],
+	ninety =>	[ \&num, 90 ],	ninetieth =>	[ \&num, 90 ],
 	ninty =>	[ \&num, 90 ], # common mispelling
 	hundred =>	[ \&prefix, 100 ],
 	thousand => 	[ \&prefix, 1000 ],
 	million =>	[ \&prefix, 10 ** 6 ],
-	billion => 	[ \&prefix, $billion ],
+	milion =>	[ \&prefix, 10 ** 6 ], # common(?) mispelling
+	milliard =>	[ \&prefix, 10 ** 9 ],
+	billion => 	[ \&powprefix, 2 ], # These vary depending on country.
+	trillion =>	[ \&powprefix, 3 ],
+	quadrillion =>	[ \&powprefix, 4 ],
+	quintillion =>	[ \&powprefix, 5 ],
+	sextillion =>	[ \&powprefix, 6 ],
+	septillion =>	[ \&powprefix, 7 ],
+	octillion =>	[ \&powprefix, 8 ],
+	nonillion =>	[ \&powprefix, 9 ],
+	decillion =>	[ \&powprefix, 10 ],
+	googol =>	[ \&googol ],
+	googolplex =>	[ \&googolplex ],
 	negative => 	[ \&invert ],
 	minus =>	[ \&invert ],
 	score =>	[ \&prefix, 20 ],
-	gross => 	[ \&prefix, 12 * 12 ], 
+	gross => 	[ \&prefix, 12 * 12 ],
 	dozen =>        [ \&prefix, 12 ],
 	bakersdozen =>	[ \&prefix, 13 ],
-	bakerdozen =>   [ \&prefix, 13 ],
+	bakerdozen =>	[ \&prefix, 13 ],
+	eleventyone =>	[ \&num, 111 ], # This nprogram written on the day
+	eleventyfirst =>[ \&num, 111 ], # FOTR released.
 	s => 		[ sub {} ], # ignore 's', at the end of a word, 
 	                            # easy pluralization of dozens, etc.
+	es =>		[ sub {} ], # same for 'es'; for googolplexes, etc.
+	th =>		[ sub {} ], # ignore 'th', for cardinal nums
 );
 
-# Note the ordering, so that eg, fourty has a chance to match before four.
+# Note the ordering, so that eg, ninety has a chance to match before nine.
 my $numregexp = join("|", reverse sort keys %nametosub);
 $numregexp=qr/($numregexp)/;
+
+my ($total, $mult, $oldpre, $newmult, $suffix, $val);
 
 sub num ($) {
 	$val = shift;
@@ -143,12 +161,34 @@ sub prefix ($) {
 	$newmult = 1;
 }
 
+sub powprefix {
+	my $power = shift;
+	if ($billion == 10 ** 9) { # EN
+		prefix(10 ** (($power + 1) * 3));
+	}
+	elsif ($billion == 10 ** 12) { # GB
+		prefix(10 ** ($power * 6));
+	}
+	else {
+		failure("\$billion is set to odd value: $billion");
+	}
+}
+
+
 sub suffix ($) {
 	$suffix = shift;
 }
 
 sub invert () {
 	$total *= -1;
+}
+
+sub googol () {
+	prefix(10 ** 100);
+}
+
+sub googolplex () {
+	prefix(10 ** (10 ** 100));
 }
 
 sub failure ($) {
@@ -158,20 +198,20 @@ sub failure ($) {
 
 sub words2nums ($) {
 	$_=lc(shift);
-	return $_ if /^[-+.0-9]+$/; # short circuit for already valid number
+	chomp $_;
+	return $_ if /^[-+.0-9\s]+$/; # short circuit for already valid number
 
 	$total=$oldpre=$suffix=$newmult=0;
 	$mult=1;
-
+	
 	return failure("not a number") unless length $_;
-	s/th$//; # cardinalize (there are some special cases in the hash too)
-	s/\b(and|a)\b//g; # ignore "and", "a".
-	s/[^A-Za-z0-9]//g; # ignore punctuation
+	s/\b(and|a|of)\b//g; # ignore some common words
+	s/[^A-Za-z0-9.]//g; # ignore punctuation, except period.
 	# Work backwards up the string.
 	while (length $_) {
 		$nametosub{$1}[0]->($nametosub{$1}[1]) while s/$numregexp$//;
 		if (length $_) {
-			if (s/(\d+)$//) {
+			if (s/(\d+)(?:st|nd|rd|th)?$//) {
 				num($1);
 			}
 			else {

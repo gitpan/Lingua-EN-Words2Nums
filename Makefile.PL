@@ -2,8 +2,9 @@
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-	NAME	=> 'Lingua::EN::Words2Nums',
-	VERSION => getversion(),
+	NAME      => 'Lingua::EN::Words2Nums',
+	VERSION   => getversion(),
+	PM_FILTER => 'grep -v \\"NOT IN PRODUCTION CODE\\"'
 );
 
 # The version is pulled from the debian changelog, to avoid having to keep
