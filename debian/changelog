@@ -1,3 +1,15 @@
+liblingua-en-words2nums-perl (0.08) unstable; urgency=low
+
+  * Localize $_. 
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 18 Oct 2002 15:32:26 -0400
+
+liblingua-en-words2nums-perl (0.07) unstable; urgency=low
+
+  * Use debhelper v4. 
+
+ -- Joey Hess <joeyh@debian.org>  Sat,  1 Jun 2002 18:15:26 -0400
+
 liblingua-en-words2nums-perl (0.06) unstable; urgency=low
 
   * Don't try to test for inf, since it seems "Infinity" is the string on some

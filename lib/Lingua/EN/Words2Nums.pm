@@ -16,7 +16,7 @@ our @EXPORT=qw(&words2nums);
 =head1 SYNOPSIS
 
  use Lingua::EN::Words2Nums;
- $num=words2nums("one thousand and one");
+ $num=words2nums("two thousand and one");
  $num=words2nums("twenty-second");
  $num=words2nums("15 billion, 6 million, and ninteen");
 
@@ -234,7 +234,7 @@ sub failure ($) {
 }
 
 sub words2nums ($) {
-	$_=lc(shift);
+	local $_=lc(shift);
 	chomp $_;
 
 	s/,//; # ignore comma, even if it's in a plain number
