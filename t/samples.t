@@ -18,6 +18,10 @@ foreach (@samples) {
 		ok(! defined words2nums($text));
 	}
 	else {
-		ok(words2nums($text), $num);
+		my $w2n = words2nums($text);
+		# On win32 platform, exponents semm to have leading zero.
+		# This makes it work either way.
+		$w2n =~ s/e+0(\d+)/e+$1/;
+		ok($w2n, $num);
 	}
 }

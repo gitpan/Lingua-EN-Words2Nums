@@ -75,7 +75,8 @@ standard scalar type, and "inf" will be returned.
 =cut
  
 our %nametosub = (
-	naught =>	[ \&num, 0 ],   # Cardinal numbers, leaving out the 
+	naught =>	[ \&num, 0 ],   # Cardinal numbers, leaving out the a
+	nought =>	[ \&num, 0 ],
 	zero =>		[ \&num, 0 ],	# ones that just add "th".
 	one =>		[ \&num, 1 ],	first =>	[ \&num, 1 ],
 	two =>		[ \&num, 2 ],	second =>	[ \&num, 2 ],
@@ -96,7 +97,8 @@ our %nametosub = (
 	teen =>		[ \&suffix, 10 ], # takes care of the regular teens
 	twenty =>	[ \&num, 20 ],	twentieth =>	[ \&num, 20 ],
 	thirty =>	[ \&num, 30 ],  thirtieth =>	[ \&num, 30 ],
-	fourty =>	[ \&num, 40 ],	fortieth =>	[ \&num, 40 ],
+	forty =>	[ \&num, 40 ],	fortieth =>	[ \&num, 40 ],
+	fourty =>	[ \&num, 40 ],  fourtieth =>    [ \&num, 40 ], # at least I mispell it like this
 	fifty =>	[ \&num, 50 ],	fiftieth =>	[ \&num, 50 ],
 	sixty =>	[ \&num, 60 ],	sixtieth =>	[ \&num, 60 ],
 	seventy =>	[ \&num, 70 ],	seventieth =>	[ \&num, 70 ],

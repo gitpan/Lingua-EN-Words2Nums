@@ -1,3 +1,10 @@
+liblingua-en-words2nums-perl (0.10) unstable; urgency=low
+
+  * Add proper spelling of "forty", and alternate "nought" spelling.
+  * Make regression test work on win32, with exponents with leading zeroes.
+
+ -- Joey Hess <joeyh@debian.org>  Wed,  7 May 2003 01:34:11 -0400
+
 liblingua-en-words2nums-perl (0.09) unstable; urgency=low
 
   * Corrected parsing of "fourth". Oops!
