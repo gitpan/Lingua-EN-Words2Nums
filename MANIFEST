@@ -9,3 +9,4 @@ debian/rules
 lib/Lingua/EN/Words2Nums.pm
 samples
 t/samples.t
+testnum

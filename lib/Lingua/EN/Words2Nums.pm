@@ -109,14 +109,51 @@ our %nametosub = (
 	milion =>	[ \&prefix, 10 ** 6 ], # common(?) mispelling
 	milliard =>	[ \&prefix, 10 ** 9 ],
 	billion => 	[ \&powprefix, 2 ], # These vary depending on country.
+	billiard =>	[ \&prefix, 10 ** 15 ],
 	trillion =>	[ \&powprefix, 3 ],
+	trilliard =>	[ \&prefix, 10 ** 21 ],
 	quadrillion =>	[ \&powprefix, 4 ],
+	quadrilliard =>	[ \&prefix, 10 ** 27 ],
 	quintillion =>	[ \&powprefix, 5 ],
+	quintilliard =>	[ \&prefix, 10 ** 33 ],
 	sextillion =>	[ \&powprefix, 6 ],
+	sextilliard =>	[ \&prefix, 10 ** 39 ],
 	septillion =>	[ \&powprefix, 7 ],
+	septilliard =>	[ \&prefix, 10 ** 45 ],
 	octillion =>	[ \&powprefix, 8 ],
+	octilliard =>	[ \&prefix, 10 ** 51 ],
 	nonillion =>	[ \&powprefix, 9 ],
+	nonilliard =>	[ \&prefix, 10 ** 57 ],
 	decillion =>	[ \&powprefix, 10 ],
+	decilliard =>	[ \&prefix, 10 ** 63 ],
+	undecillion =>	[ \&powprefix, 11 ],
+	undecilliard =>	[ \&prefix, 10 ** 69 ],
+	duodecillion => [ \&powprefix, 12 ],
+	duodecilliard =>	[ \&prefix, 10 ** 75 ],
+	tredecillion =>		[ \&powprefix, 13 ],
+	tredecilliard =>	[ \&prefix, 10 ** 81 ],
+	quattuordecillion =>	[ \&powprefix, 14 ],
+	quattuordecilliard =>	[ \&prefix, 10 ** 87 ],
+	quindecillion =>	[ \&powprefix, 15 ],
+	quindecilliard =>	[ \&prefix, 10 ** 93 ],
+	sexdecillion =>		[ \&powprefix, 16 ],
+	septendecillion => 	[ \&powprefix, 17 ],
+	octodecillion =>	[ \&powprefix, 18 ],
+	novemdecillion =>	[ \&powprefix, 19 ],
+	vigintillion =>		[ \&powprefix, 20 ],
+	unvigintillion => 	[ \&powprefix, 21 ],
+	dovigintillion => 	[ \&powprefix, 22 ],
+	trevigintillion => 	[ \&powprefix, 23 ],
+	quattuorvigintillion =>	[ \&powprefix, 24 ],
+	quinvigintillion =>	[ \&powprefix, 25 ],
+	sexvigintillion =>	[ \&powprefix, 26 ],
+	septenvigintillion =>	[ \&powprefix, 27 ],
+	octovigintillion =>	[ \&powprefix, 28 ],
+	novemvigintillion =>	[ \&powprefix, 29 ],
+	trigintillion =>	[ \&powprefix, 30 ],
+	# This process can be continued indefinitely, but one has to stop
+	# somewhere. -- A Dictionary of Units of Measurement
+	centillion => 	[ \&powprefix, 100 ],
 	googol =>	[ \&googol ],
 	googolplex =>	[ \&googolplex ],
 	negative => 	[ \&invert ],
@@ -199,15 +236,17 @@ sub failure ($) {
 sub words2nums ($) {
 	$_=lc(shift);
 	chomp $_;
-	return $_ if /^[-+.0-9\s]+$/; # short circuit for already valid number
+
+	s/,//; # ignore comma, even if it's in a plain number
+	return $_ if /^[-+.0-9\s]+$/; # short circuit for plain number
+
+	s/\b(and|a|of)\b//g; # ignore some common words
+	s/[^A-Za-z0-9.]//g; # ignore spaces and punctuation, except period.
+	return failure("not a number") unless length $_;
 
 	$total=$oldpre=$suffix=$newmult=0;
 	$mult=1;
 	
-	s/\b(and|a|of)\b//g; # ignore some common words
-	s/[^A-Za-z0-9.]//g; # ignore punctuation, except period.
-	return failure("not a number") unless length $_;
-
 	# Work backwards up the string.
 	while (length $_) {
 		$nametosub{$1}[0]->($nametosub{$1}[1]) while s/$numregexp$//;

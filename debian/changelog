@@ -1,3 +1,17 @@
+liblingua-en-words2nums-perl (0.05) unstable; urgency=low
+
+  * Added big numbers between undecillion and trigintillion. Also
+    centillion, and billiard through quindecilliard.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 26 Feb 2002 23:09:29 -0500
+
+liblingua-en-words2nums-perl (0.04) unstable; urgency=low
+
+  * Corrected parsing of otherwise plain numbers that have commas in them
+    (123,456.789)
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 12 Jan 2002 17:33:22 -0500
+
 liblingua-en-words2nums-perl (0.03) unstable; urgency=low
 
   * If the entire string is ignorables ("and", "a", punctuation), don't
