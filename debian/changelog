@@ -1,8 +1,20 @@
+liblingua-en-words2nums-perl (0.09) unstable; urgency=low
+
+  * Corrected parsing of "fourth". Oops!
+  * Moved pm file out of deep directory in source tarball, which was
+    unnecessary for such a small package.
+  * Added AUTHOR and ABSTRACT_FROM to Makefile.PL.
+  * Accept douvigintillion, as well as dovigintillion; I don't know which is
+    right.
+  * Thanks to Erick Calder for his help.
+
+ -- Joey Hess <joeyh@debian.org>  Mon,  3 Feb 2003 12:16:02 -0500
+
 liblingua-en-words2nums-perl (0.08) unstable; urgency=low
 
   * Localize $_. 
 
- -- Joey Hess <joeyh@debian.org>  Fri, 18 Oct 2002 15:32:26 -0400
+ -- Joey Hess <joeyh@debian.org>  Fri, 18 Oct 2002 16:09:59 -0400
 
 liblingua-en-words2nums-perl (0.07) unstable; urgency=low
 

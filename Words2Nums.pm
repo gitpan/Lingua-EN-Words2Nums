@@ -80,7 +80,7 @@ our %nametosub = (
 	one =>		[ \&num, 1 ],	first =>	[ \&num, 1 ],
 	two =>		[ \&num, 2 ],	second =>	[ \&num, 2 ],
 	three =>	[ \&num, 3 ],	third =>	[ \&num, 3 ],
-	four =>		[ \&num, 4 ],	fourth =>	[ \&num, 5 ],
+	four =>		[ \&num, 4 ],	fourth =>	[ \&num, 4 ],
 	five =>		[ \&num, 5 ],	fifth =>	[ \&num, 5 ],
 	six =>		[ \&num, 6 ],
 	seven =>	[ \&num, 7 ],	seven =>	[ \&num, 7 ],
@@ -142,7 +142,8 @@ our %nametosub = (
 	novemdecillion =>	[ \&powprefix, 19 ],
 	vigintillion =>		[ \&powprefix, 20 ],
 	unvigintillion => 	[ \&powprefix, 21 ],
-	dovigintillion => 	[ \&powprefix, 22 ],
+	duovigintillion => 	[ \&powprefix, 22 ],
+	duvigintillion => 	[ \&powprefix, 22 ], # some use this spelling
 	trevigintillion => 	[ \&powprefix, 23 ],
 	quattuorvigintillion =>	[ \&powprefix, 24 ],
 	quinvigintillion =>	[ \&powprefix, 25 ],
@@ -266,7 +267,7 @@ sub words2nums ($) {
 
 =head1 AUTHOR
 
-Copyright © 2001-2002 Joey Hess <joey@kitenet.net>
+Copyright © 2001-2003 Joey Hess <joey@kitenet.net>
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

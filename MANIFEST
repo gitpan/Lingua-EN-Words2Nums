@@ -6,7 +6,7 @@ debian/changelog
 debian/control
 debian/copyright
 debian/rules
-lib/Lingua/EN/Words2Nums.pm
 samples
 t/samples.t
 testnum
+Words2Nums.pm
