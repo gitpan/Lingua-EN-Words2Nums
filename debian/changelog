@@ -1,3 +1,10 @@
+liblingua-en-words2nums-perl (0.06) unstable; urgency=low
+
+  * Don't try to test for inf, since it seems "Infinity" is the string on some
+    platforms.
+
+ -- Joey Hess <joeyh@debian.org>  Sat,  1 Jun 2002 10:01:09 -0400
+
 liblingua-en-words2nums-perl (0.05) unstable; urgency=low
 
   * Added big numbers between undecillion and trigintillion. Also

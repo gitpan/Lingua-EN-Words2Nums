@@ -266,7 +266,7 @@ sub words2nums ($) {
 
 =head1 AUTHOR
 
-Copyright © 2001 Joey Hess <joey@kitenet.net>
+Copyright © 2001-2002 Joey Hess <joey@kitenet.net>
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

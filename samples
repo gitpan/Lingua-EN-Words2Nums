@@ -76,8 +76,10 @@
 4		4th
 4023		4023rd
 # Perl's numbers don't go this high.
-inf		googolplex
-inf		seven googolplexes
+# Also, the return for infinity varies with platforms, so this is not a
+# good test.
+#inf		googolplex
+#inf		seven googolplexes
 # Some things that should not parse to a number:
 undef		and
 undef		,
