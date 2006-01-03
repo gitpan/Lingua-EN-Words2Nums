@@ -1,7 +1,5 @@
 #!/usr/bin/perl
-
-# Load module from current directory.
-use lib ".";
+use blib; # work on uninstalled package
 use Words2Nums;
 import Lingua::EN::Words2Nums;
 

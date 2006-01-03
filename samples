@@ -53,22 +53,10 @@
 4103		four thousand, hundred and three
 288		two gross
 288		two grosses
-1e+100		googol
-2e+101		a score of googoles
 1000000		a million
 1000000		million
 1000000000	billion
 1000000000000	trillion
-1e+15		quadrillion
-1e+18		quintillion
-1e+21		sextillion
-1e+24		septillion
-1e+27		octillion
-1e+30		nonillion
-1e+33		decillion
-1e+63		vigintillion
-1e+87		quattuordecilliard
-1e+303		centillion
 1		1st
 2		2nd
 3		3rd
@@ -79,6 +67,8 @@
 # good test.
 #inf		googolplex
 #inf		seven googolplexes
+# Maybe when we get Bignum support..
+#10314424798490535546171949056 Ten octillion, three hundred fourteen septillion, four hundred twenty-four sextillion, seven hundred ninety-eight quintillion, four hundred ninety quadrillion, five hundred thirty-five trillion, five hundred forty-six billion, one hundred seventy-one million, nine hundred forty-nine thousand, and fifty six
 # Some things that should not parse to a number:
 undef		and
 undef		,
