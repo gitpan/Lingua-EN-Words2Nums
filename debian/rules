@@ -20,7 +20,7 @@ install: build
 	dh_testroot
 	dh_clean -k
 	dh_installdirs usr/lib
-	$(MAKE) install PREFIX=$(PWD)/debian/`dh_listpackages`/usr
+	$(MAKE) install PREFIX=`pwd`/debian/`dh_listpackages`/usr
 
 binary-arch: build install
 
@@ -40,17 +40,9 @@ binary-indep: build install
 	dh_md5sums
 	dh_builddeb
 
-VERSION=$(shell expr "`dpkg-parsechangelog 2>/dev/null |grep Version:`" : '.*Version: \(.*\)')
-
-# Update the web page. Not intended for use by anyone except the
-# author.
-DIR=/home/web/kitenet.net/programs/Lingua::EN::Words2Nums
-installhook:
-	cp debian/changelog $(DIR)/CHANGES
-	cp TODO $(DIR)/TODO
-	echo -n $(VERSION) > $(DIR)/LATEST-VERSION-IS
-	rm -f $(DIR)/*.tar.gz
-	ln -s /home/joey/lib/debian/unstable/liblingua-en-words2nums-perl_$(VERSION).tar.gz $(DIR)/Lingua::EN::Words2Nums-$(VERSION).tar.gz
+# Not intended for use by anyone except the author.
+announcedir:
+	@echo ${HOME}/src/joeywiki/code/words2nums/news
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install

@@ -1,3 +1,12 @@
+liblingua-en-words2nums-perl (0.15) unstable; urgency=low
+
+  * Update url to the web site.
+  * Current standards-version (no real changes).
+  * Fix unicode error in man page.
+  * Fix lintian warning about rules file.
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 04 Jun 2007 16:49:19 -0400
+
 liblingua-en-words2nums-perl (0.14) unstable; urgency=low
 
   * Remove the tests that involve exponentents, as they may not on 64 bit
