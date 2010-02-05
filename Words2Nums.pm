@@ -7,8 +7,8 @@ Lingua::EN::Words2Nums - convert English text to numbers
 =cut
 
 package Lingua::EN::Words2Nums;
-use warnings; # NOT IN PRODUCTION CODE
-use strict; # NOT IN PRODUCTION CODE
+use warnings;
+use strict;
 require Exporter;
 our @ISA=qw(Exporter);
 our @EXPORT=qw(&words2nums);

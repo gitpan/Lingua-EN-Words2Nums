@@ -1,48 +1,7 @@
 #!/usr/bin/make -f
-
-build: build-stamp
-build-stamp:
-	dh_testdir
-	perl Makefile.PL INSTALLDIRS=vendor
-	$(MAKE)
-	$(MAKE) test
-	touch build-stamp
-
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp
-	-$(MAKE) distclean
-	dh_clean
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k
-	dh_installdirs usr/lib
-	$(MAKE) install PREFIX=`pwd`/debian/`dh_listpackages`/usr
-
-binary-arch: build install
-
-binary-indep: build install
-	dh_testdir
-	dh_testroot
-	dh_installdocs README TODO
-	dh_installexamples samples
-	dh_installchangelogs
-	dh_link
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_perl
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
+%:
+	dh $@
 
 # Not intended for use by anyone except the author.
 announcedir:
 	@echo ${HOME}/src/joeywiki/code/words2nums/news
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install

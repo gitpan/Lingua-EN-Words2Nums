@@ -1,3 +1,22 @@
+liblingua-en-words2nums-perl (0.18) unstable; urgency=low
+
+  * Remove the PM_FILTER to support Windows. (rt.cpan.org #38101)
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 05 Feb 2010 16:42:32 -0500
+
+liblingua-en-words2nums-perl (0.17) unstable; urgency=low
+
+  * Use debhelper v7; rules file minimisation.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 22 Jul 2008 00:29:12 -0400
+
+liblingua-en-words2nums-perl (0.16) unstable; urgency=low
+
+  * The repository has moved from svn to git.
+  * Minor improvement to debian/rules clean.
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 19 Oct 2007 22:21:04 -0400
+
 liblingua-en-words2nums-perl (0.15) unstable; urgency=low
 
   * Update url to the web site.

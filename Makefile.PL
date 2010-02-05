@@ -4,7 +4,6 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
 	NAME      => 'Lingua::EN::Words2Nums',
 	VERSION   => getversion(),
-	PM_FILTER => 'grep -v "NOT IN PRODUCTION CODE"',
 	$] < 5.005 ? () : (
 		AUTHOR => 'Joey Hess <joey@kitenet.net>',
 		ABSTRACT_FROM => 'Words2Nums.pm',
